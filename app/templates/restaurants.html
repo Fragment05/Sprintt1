@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% from "_macros.html" import rating, photo, price %}
+{% block title %}Restaurantes · FriendlyEats{% endblock %}
+
+{% block content %}
+<h1>Restaurantes</h1>
+
+{% if flash %}
+  <p class="message success" role="status">{{ flash }}</p>
+{% endif %}
+
+<form class="filters" method="get" action="/">
+  <label>Ciudad
+    <select name="city">
+      <option value="">Todas</option>
+      {% for c in cities %}
+        <option value="{{ c }}" {{ "selected" if c == filters.city }}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Categoría
+    <select name="category">
+      <option value="">Todas</option>
+      {% for c in categories %}
+        <option value="{{ c }}" {{ "selected" if c == filters.category }}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Precio
+    <select name="price">
+      <option value="">Todos</option>
+      <option value="1" {{ "selected" if filters.price == 1 }}>$</option>
+      <option value="2" {{ "selected" if filters.price == 2 }}>$$</option>
+      <option value="3" {{ "selected" if filters.price == 3 }}>$$$</option>
+    </select>
+  </label>
+  <label>Ordenar por
+    <select name="order_by">
+      <option value="name" {{ "selected" if order_by == "name" }}>Nombre</option>
+      <option value="avgRating" {{ "selected" if order_by == "avgRating" }}>Mejor calificación</option>
+    </select>
+  </label>
+  <div class="filter-actions">
+    <button class="btn btn-primary" type="submit">Filtrar</button>
+    {% if has_filters %}<a class="btn" href="/">Limpiar</a>{% endif %}
+  </div>
+</form>
+
+{% if restaurants %}
+  <section class="grid">
+    {% for r in restaurants %}
+      <article class="card">
+        {{ photo(r, "card-photo") }}
+        <div class="card-body">
+          <h2 class="card-title">{{ r.name }}</h2>
+          <p class="card-meta">{{ r.category }} · {{ r.city }}</p>
+          <p class="card-meta">{{ price(r) }} · {{ rating(r) }}</p>
+          <a class="btn" href="/restaurants/{{ r.id }}">Ver detalles</a>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+  {% if next_url %}
+    <p class="pager"><a class="btn" href="{{ next_url }}">Siguiente página →</a></p>
+  {% endif %}
+{% else %}
+  <div class="empty">
+    <p>No hay restaurantes que coincidan.</p>
+    <a class="btn btn-primary" href="/restaurants/new">Agregar el primero</a>
+  </div>
+{% endif %}
+{% endblock %}

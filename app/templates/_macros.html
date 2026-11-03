@@ -1,0 +1,20 @@
+{% macro rating(restaurant) -%}
+  {%- if restaurant.numRatings and restaurant.numRatings > 0 -%}
+    <span class="rating" title="Calificación promedio">★ {{ "%.1f"|format(restaurant.avgRating) }}</span>
+    <span class="muted">({{ restaurant.numRatings }})</span>
+  {%- else -%}
+    <span class="muted">Sin calificaciones</span>
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro photo(restaurant, css_class) -%}
+  {%- if restaurant.photoUrl -%}
+    <img class="{{ css_class }}" src="{{ restaurant.photoUrl }}" alt="Foto de {{ restaurant.name }}" loading="lazy">
+  {%- else -%}
+    <div class="{{ css_class }} photo-placeholder" aria-hidden="true">🍴</div>
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro price(restaurant) -%}
+  <span class="price" title="Nivel de precio {{ restaurant.price }} de 3">{{ "$" * restaurant.price }}</span>
+{%- endmacro %}

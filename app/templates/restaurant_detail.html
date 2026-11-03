@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% from "_macros.html" import rating, photo, price %}
+{% block title %}{{ restaurant.name }} · FriendlyEats{% endblock %}
+
+{% block content %}
+<p><a href="/">← Volver al listado</a></p>
+
+<article class="detail">
+  {{ photo(restaurant, "detail-photo") }}
+  <div class="detail-body">
+    <h1>{{ restaurant.name }}</h1>
+    <dl class="facts">
+      <dt>Categoría</dt><dd>{{ restaurant.category }}</dd>
+      <dt>Ciudad</dt><dd>{{ restaurant.city }}</dd>
+      <dt>Precio</dt><dd>{{ price(restaurant) }}</dd>
+      <dt>Calificación</dt><dd>{{ rating(restaurant) }}</dd>
+    </dl>
+    <div class="actions">
+      <a class="btn btn-primary" href="/restaurants/{{ restaurant.id }}/edit">Editar</a>
+      <button class="btn btn-danger" type="button"
+              data-delete
+              data-id="{{ restaurant.id }}"
+              data-name="{{ restaurant.name }}">Eliminar</button>
+    </div>
+    <p id="message" class="message" role="status"></p>
+  </div>
+</article>
+{% endblock %}

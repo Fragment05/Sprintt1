@@ -1,0 +1,20 @@
+# Entorno Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secretos y credenciales (NUNCA se suben a Git)
+.env
+secrets/
+service-account*.json
+*-credentials.json
+
+# Firebase: logs y caché locales
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+.firebase/
+
+# Node (firebase-tools local, si se instala sin -g)
+node_modules/
