@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% from "_macros.html" import rating, photo, price %}
+{% set active = "list" %}
 {% block title %}{{ restaurant.name }} · FriendlyEats{% endblock %}
 
 {% block content %}
-<p><a href="/">← Volver al listado</a></p>
+<a class="back" href="/">← Volver al listado</a>
 
 <article class="detail">
   {{ photo(restaurant, "detail-photo") }}
   <div class="detail-body">
+    <p class="kicker">{{ restaurant.category }} · {{ restaurant.city }}</p>
     <h1>{{ restaurant.name }}</h1>
     <dl class="facts">
       <dt>Categoría</dt><dd>{{ restaurant.category }}</dd>

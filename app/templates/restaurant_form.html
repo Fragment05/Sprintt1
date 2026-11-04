@@ -1,35 +1,40 @@
 {% extends "base.html" %}
+{% set active = "new" if not restaurant else "list" %}
 {% block title %}{{ "Editar" if restaurant else "Nuevo" }} restaurante · FriendlyEats{% endblock %}
 
 {% block content %}
-<p><a href="{{ '/restaurants/' ~ restaurant.id if restaurant else '/' }}">← Cancelar</a></p>
-<h1>{{ "Editar" if restaurant else "Nuevo" }} restaurante</h1>
+<div class="form-wrap">
+  <a class="back" href="{{ '/restaurants/' ~ restaurant.id if restaurant else '/' }}">← Cancelar</a>
+  <h1>{{ "Editar" if restaurant else "Nuevo" }} restaurante</h1>
 
-<form id="restaurant-form" class="form"
-      data-mode="{{ 'edit' if restaurant else 'create' }}"
-      {% if restaurant %}data-id="{{ restaurant.id }}"{% endif %}>
-  <label>Nombre
-    <input name="name" required maxlength="100" value="{{ restaurant.name if restaurant else '' }}">
-  </label>
-  <label>Categoría
-    <input name="category" required maxlength="50" placeholder="Ej. Mexicana"
-           value="{{ restaurant.category if restaurant else '' }}">
-  </label>
-  <label>Ciudad
-    <input name="city" required maxlength="50" value="{{ restaurant.city if restaurant else '' }}">
-  </label>
-  <label>Precio
-    <select name="price" required>
-      <option value="1" {{ "selected" if restaurant and restaurant.price == 1 }}>$ (económico)</option>
-      <option value="2" {{ "selected" if not restaurant or restaurant.price == 2 }}>$$ (medio)</option>
-      <option value="3" {{ "selected" if restaurant and restaurant.price == 3 }}>$$$ (alto)</option>
-    </select>
-  </label>
-  <label>URL de imagen (opcional)
-    <input name="photoUrl" type="url" maxlength="500" placeholder="https://..."
-           value="{{ restaurant.photoUrl if restaurant and restaurant.photoUrl else '' }}">
-  </label>
-  <button class="btn btn-primary" type="submit">Guardar</button>
-</form>
-<p id="message" class="message" role="status"></p>
+  <div class="panel">
+    <form id="restaurant-form" class="form"
+          data-mode="{{ 'edit' if restaurant else 'create' }}"
+          {% if restaurant %}data-id="{{ restaurant.id }}"{% endif %}>
+      <label>Nombre
+        <input name="name" required maxlength="100" value="{{ restaurant.name if restaurant else '' }}">
+      </label>
+      <label>Categoría
+        <input name="category" required maxlength="50" placeholder="Ej. Mexicana"
+               value="{{ restaurant.category if restaurant else '' }}">
+      </label>
+      <label>Ciudad
+        <input name="city" required maxlength="50" value="{{ restaurant.city if restaurant else '' }}">
+      </label>
+      <label>Precio
+        <select name="price" required>
+          <option value="1" {{ "selected" if restaurant and restaurant.price == 1 }}>$ (económico)</option>
+          <option value="2" {{ "selected" if not restaurant or restaurant.price == 2 }}>$$ (medio)</option>
+          <option value="3" {{ "selected" if restaurant and restaurant.price == 3 }}>$$$ (alto)</option>
+        </select>
+      </label>
+      <label>URL de imagen (opcional)
+        <input name="photoUrl" type="url" maxlength="500" placeholder="https://..."
+               value="{{ restaurant.photoUrl if restaurant and restaurant.photoUrl else '' }}">
+      </label>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+    <p id="message" class="message" role="status"></p>
+  </div>
+</div>
 {% endblock %}

@@ -7,23 +7,29 @@
   <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="/">🍽️ FriendlyEats</a>
-      <nav class="nav">
-        <a class="nav-link" href="/">Restaurantes</a>
-        <a class="btn btn-primary" href="/restaurants/new">+ Nuevo restaurante</a>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="logo" href="/" title="FriendlyEats" aria-label="FriendlyEats">🍽️</a>
+      <nav class="side-nav" style="display: contents;">
+        <a class="side-link {{ 'active' if active == 'list' }}" href="/" title="Restaurantes" aria-label="Restaurantes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </a>
+        <a class="side-link {{ 'active' if active == 'new' }}" href="/restaurants/new" title="Nuevo restaurante" aria-label="Nuevo restaurante">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        </a>
+        <a class="side-link" href="/docs" title="Documentación de la API" aria-label="Documentación de la API">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+        </a>
       </nav>
+    </aside>
+
+    <div class="content">
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+      <footer class="site-footer">FriendlyEats · Sprint 1 (versión local)</footer>
     </div>
-  </header>
-
-  <main class="container">
-    {% block content %}{% endblock %}
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">FriendlyEats · Sprint 1 (versión local)</div>
-  </footer>
+  </div>
 
   <script src="/static/js/app.js" defer></script>
 </body>
